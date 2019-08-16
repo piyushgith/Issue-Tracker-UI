@@ -7,8 +7,8 @@ class TableRow extends Component {
         <td>{this.props.obj.id}</td>
         <td>{this.props.obj.category}</td>
         <td>{this.props.obj.description}</td>
-        <td>{this.props.obj.status}</td>
         <td>{this.props.obj.priority}</td>
+        <td>{this.props.obj.status}</td>
         <td>
           <a href="/">Close Defect</a>
         </td>

@@ -27,36 +27,36 @@ class Main extends React.Component {
   }
 
   render() {
-    var issueList = [
-      {
-        id: 1,
-        category: "UI Issue",
-        description: "Need CSS in page",
-        status: "New",
-        priority: 1
-      },
-      {
-        id: 2,
-        category: "Data Issue",
-        description: "Need Correct data in Order Tables",
-        status: "New",
-        priority: 1
-      },
-      {
-        id: 3,
-        category: "Code Issue",
-        description: "Need Correct value in page",
-        status: "In Progress",
-        priority: 2
-      },
-      {
-        id: 4,
-        category: "Code Issue",
-        description: "Need to update roles and permissions",
-        status: "In Progress",
-        priority: 2
-      }
-    ];
+    // var issueList = [
+    //   {
+    //     id: 1,
+    //     category: "UI Issue",
+    //     description: "Need CSS in page",
+    //     status: "New",
+    //     priority: 1
+    //   },
+    //   {
+    //     id: 2,
+    //     category: "Data Issue",
+    //     description: "Need Correct data in Order Tables",
+    //     status: "New",
+    //     priority: 1
+    //   },
+    //   {
+    //     id: 3,
+    //     category: "Code Issue",
+    //     description: "Need Correct value in page",
+    //     status: "In Progress",
+    //     priority: 2
+    //   },
+    //   {
+    //     id: 4,
+    //     category: "Code Issue",
+    //     description: "Need to update roles and permissions",
+    //     status: "In Progress",
+    //     priority: 2
+    //   }
+    // ];
     //var rowData = [];
     // for (let i = 0; i < issueList.length; i++) {
     //   var row = (
@@ -87,7 +87,7 @@ class Main extends React.Component {
         >
           <thead className="thead-light">
             <tr className="table-primary">
-              <th>Number</th>
+              <th>Ticket Number</th>
               <th>Defect Category</th>
               <th>Description</th>
               <th>Priority</th>
