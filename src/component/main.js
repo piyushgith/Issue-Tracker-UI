@@ -1,6 +1,31 @@
 import React from "react";
+import axios from "axios";
+import TableRow from "./TableRow";
+//const API_URL1 = "http://jsonplaceholder.typicode.com";
+const API_URL = "http://localhost:9999";
 
 class Main extends React.Component {
+  state = {
+    issue: []
+  };
+
+  componentDidMount() {
+    const url = `${API_URL}/getIssues`;
+    axios
+      .get(url)
+      .then(response => response.data)
+      .then(data => {
+        this.setState({ issue: data });
+        console.log(this.state.issue);
+      });
+  }
+
+  tabRow() {
+    return this.state.issue.map(function(object, i) {
+      return <TableRow obj={object} key={i} />;
+    });
+  }
+
   render() {
     var issueList = [
       {
@@ -32,27 +57,28 @@ class Main extends React.Component {
         priority: 2
       }
     ];
-    var rowData = [];
-    for (let i = 0; i < issueList.length; i++) {
-      var row = (
-        <tr>
-          <td>{issueList[i].id}</td>
-          <td>{issueList[i].category}</td>
-          <td>{issueList[i].description}</td>
-          <td>{issueList[i].status}</td>
-          <td>{issueList[i].priority}</td>
-          <td>
-            <a href="/">Close Defect</a>
-          </td>
-        </tr>
-      );
-      rowData.push(row);
-    }
+    //var rowData = [];
+    // for (let i = 0; i < issueList.length; i++) {
+    //   var row = (
+    //     <tr>
+    //       <td>{issueList[i].id}</td>
+    //       <td>{issueList[i].category}</td>
+    //       <td>{issueList[i].description}</td>
+    //       <td>{issueList[i].status}</td>
+    //       <td>{issueList[i].priority}</td>
+    //       <td>
+    //         <a href="/">Close Defect</a>
+    //       </td>
+    //     </tr>
+    //   );
+    //   rowData.push(row);
+    // }
+
     return (
       <React.Fragment>
         <div style={{ fontWeight: "bold", fontSize: 40 }}>Defect Details</div>
         <div style={{ fontWeight: "normal", fontSize: 20, color: "red" }}>
-          Search Results : {rowData.length}
+          Search Results : {this.state.issue.length}
         </div>
         <br />
         <table
@@ -69,7 +95,7 @@ class Main extends React.Component {
               <th>Change Status</th>
             </tr>
           </thead>
-          <tbody>{rowData}</tbody>
+          <tbody>{this.tabRow()}</tbody>
         </table>
       </React.Fragment>
     );
