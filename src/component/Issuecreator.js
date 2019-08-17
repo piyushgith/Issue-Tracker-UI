@@ -7,6 +7,7 @@ class Issuecreator extends React.Component {
   constructor() {
     super();
     this.state = {
+      issue: [],
       //id: 0,
       category: "",
       description: "",
@@ -19,13 +20,13 @@ class Issuecreator extends React.Component {
   }
   handleSelectChange(e) {
     if (e.target.name === "priority") {
-      alert(e.target.value);
+      //alert(e.target.value);
       this.setState({
         priority: e.target.value
       });
     }
     if (e.target.name === "status") {
-      alert(e.target.value);
+      //alert(e.target.value);
       this.setState({
         status: e.target.value
       });
@@ -55,14 +56,14 @@ class Issuecreator extends React.Component {
       status: e.state.status,
       priority: e.state.priority
     };
-    console.log(issue);
-    alert(issue.status);
+    //console.log(issue);
+    alert("issue.status" + issue.status);
     axios
       .post("http://localhost:9999/saveIssue", issue)
-      .then(function(response) {
-        e.setState({
-          messageFromServer: response.data
-        });
+      .then(response => response.data)
+      .then(data => {
+        this.setState({ issue: data });
+        console.log(this.state.issue);
       });
   }
   componentDidUpdate() {}
@@ -88,7 +89,7 @@ class Issuecreator extends React.Component {
 
           <div>
               <label style={{fontWeight: "bold",alignContent:"space-between"}} >Status:  </label>
-              <select style={{width:"36%",alignSelf:"right"}} name="status"id="status" onSelect={this.handleSelectChange}>
+              <select style={{width:"36%",alignSelf:"right"}} name="status"id="status" onChange={this.handleSelectChange}>
                   <option value="">Please Select</option>
                   <option value="New">New</option>
                   <option value="In Progress">In Progress</option>
@@ -99,7 +100,7 @@ class Issuecreator extends React.Component {
 
           <div>
               <label style={{fontWeight: "bold",alignContent:"space-between"}} >Priority:  </label>
-              <select style={{width:"35%",alignSelf:"right"}} name="priority"id="priority" onSelect={this.handleSelectChange}>
+              <select style={{width:"35%",alignSelf:"right"}} name="priority"id="priority" onChange={this.handleSelectChange}>
                   <option value="">Please Select</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
