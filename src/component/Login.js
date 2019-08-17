@@ -1,21 +1,22 @@
-import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 class Login extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = { name: '', password: ''}
-    }
-    setEmpState = (e) => {
-           const value = e.target.value;
-           const field =  e.target.name;
-           this.setState({[field]:value})
-    }
-    handleLogin = (e) => {
-        e.preventDefault();
-        alert('Logged in successfully');
-    }
-    render() {
-        return(<React.Fragment>
+  constructor(props) {
+    super(props);
+    this.state = { name: "", password: "" };
+  }
+  setEmpState = e => {
+    const value = e.target.value;
+    const field = e.target.name;
+    this.setState({ [field]: value });
+  };
+  handleLogin = e => {
+    e.preventDefault();
+    alert("Logged in successfully");
+  };
+  render() {
+    //prettier-ignore
+    return(<React.Fragment>
             <form>
                 <div className="form-group">
                     <label>Username:</label>
@@ -28,6 +29,6 @@ class Login extends React.Component {
                <button type="submit" className="btn btn-primary" onClick={this.handleLogin}>Login</button>
            </form>
         </React.Fragment>)
-    }
+  }
 }
 export default Login;
