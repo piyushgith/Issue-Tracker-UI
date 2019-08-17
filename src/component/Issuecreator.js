@@ -1,33 +1,114 @@
 import React from "react";
+import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../index.css";
 
 class Issuecreator extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      //id: 0,
+      category: "",
+      description: "",
+      status: "",
+      priority: ""
+    };
+    this.handleSelectChange = this.handleSelectChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleTextChange = this.handleTextChange.bind(this);
+  }
+  handleSelectChange(e) {
+    if (e.target.name === "priority") {
+      alert(e.target.value);
+      this.setState({
+        priority: e.target.value
+      });
+    }
+    if (e.target.name === "status") {
+      alert(e.target.value);
+      this.setState({
+        status: e.target.value
+      });
+    }
+  }
+  handleTextChange(e) {
+    if (e.target.name === "description") {
+      this.setState({
+        description: e.target.value
+      });
+    }
+    if (e.target.name === "defCatagory") {
+      this.setState({
+        category: e.target.value
+      });
+    }
+  }
+
+  handleSubmit(e) {
+    this.insertNewIssue(this);
+  }
+
+  insertNewIssue(e) {
+    var issue = {
+      description: e.state.description,
+      category: e.state.category,
+      status: e.state.status,
+      priority: e.state.priority
+    };
+    console.log(issue);
+    alert(issue.status);
+    axios
+      .post("http://localhost:9999/saveIssue", issue)
+      .then(function(response) {
+        e.setState({
+          messageFromServer: response.data
+        });
+      });
+  }
+  componentDidUpdate() {}
+
   render() {
     return (
       // prettier-ignore
       <React.Fragment>
          <form>
           <div className="form-group">
-            <label>Defect Catagories: </label>
+            <label style={{fontWeight: "bold"}}>Defect Catagories: </label>
             <input style={{ width: "40%" }} type="text" className="form-control"
               //   value={this.state.name}
-              id="name" placeholder="Enter Defect Catagories" name="name"
-              onChange={this.setEmpState}/>
+              id="defCatagory" placeholder="Enter Defect Catagories" name="defCatagory" onChange={this.handleTextChange}/>
           </div>
 
           <div className="form-group">
-            <label>Description:</label>
+            <label style={{fontWeight: "bold"}}>Description:</label>
             <textarea style={{ width: "40%" }} type="text" className="form-control"
               //value={this.state.name}
-              id="name" placeholder="Enter Description" name="name" onChange={this.setEmpState}/>
+              id="description" placeholder="Enter Description" name="description" onChange={this.handleTextChange}/>
           </div>
 
-          <div className="form-group">
-            <label>Priority</label>
-            <input style={{ width: "40%" }} type="text" className="form-control"
-              //value={this.state.name}
-              id="name" placeholder="Enter Priority" name="name" onChange={this.setEmpState}/>
+          <div>
+              <label style={{fontWeight: "bold",alignContent:"space-between"}} >Status:  </label>
+              <select style={{width:"36%",alignSelf:"right"}} name="status"id="status" onSelect={this.handleSelectChange}>
+                  <option value="">Please Select</option>
+                  <option value="New">New</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Need Clarification">Need Clarification</option>
+                  <option value="Close">Close</option>
+              </select>
           </div>
+
+          <div>
+              <label style={{fontWeight: "bold",alignContent:"space-between"}} >Priority:  </label>
+              <select style={{width:"35%",alignSelf:"right"}} name="priority"id="priority" onSelect={this.handleSelectChange}>
+                  <option value="">Please Select</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+              </select>
+          </div>
+
+          <br></br>
           <button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>Create Defect</button>
         </form>
       </React.Fragment>
